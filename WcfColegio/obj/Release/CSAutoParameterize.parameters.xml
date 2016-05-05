@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ColegioSPEntities-Web.config Connection String" description="ColegioSPEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Modelo.Model1.csdl|res://*/Modelo.Model1.ssdl|res://*/Modelo.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=o9x3g13sfg.database.windows.net;initial catalog=ColegioSP;user id=administronacho;password=Curso02015;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="c:\\users\\ericame\\documents\\visual\ studio\ 2015\\Projects\\WcfColegio\\WcfColegio\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ColegioSPEntities']/@connectionString" />
+  </parameter>
+</parameters>

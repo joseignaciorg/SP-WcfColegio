@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ColegioSPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Alumno">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="edad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alumno_Curso" Relationship="Self.FK_Alumno_Curso_Alumno" FromRole="Alumno" ToRole="Alumno_Curso" />
+  </EntityType>
+  <EntityType Name="Alumno_Curso">
+    <Key>
+      <PropertyRef Name="idAlumno" />
+      <PropertyRef Name="idCurso" />
+    </Key>
+    <Property Name="idAlumno" Type="Int32" Nullable="false" />
+    <Property Name="idCurso" Type="Int32" Nullable="false" />
+    <Property Name="nota" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alumno" Relationship="Self.FK_Alumno_Curso_Alumno" FromRole="Alumno_Curso" ToRole="Alumno" />
+    <NavigationProperty Name="Curso" Relationship="Self.FK_Alumno_Curso_Curso" FromRole="Alumno_Curso" ToRole="Curso" />
+  </EntityType>
+  <EntityType Name="Curso">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="inicio" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="duracion" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Alumno_Curso" Relationship="Self.FK_Alumno_Curso_Curso" FromRole="Curso" ToRole="Alumno_Curso" />
+  </EntityType>
+  <Association Name="FK_Alumno_Curso_Alumno">
+    <End Role="Alumno" Type="Self.Alumno" Multiplicity="1" />
+    <End Role="Alumno_Curso" Type="Self.Alumno_Curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumno">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alumno_Curso">
+        <PropertyRef Name="idAlumno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Alumno_Curso_Curso">
+    <End Role="Curso" Type="Self.Curso" Multiplicity="1" />
+    <End Role="Alumno_Curso" Type="Self.Alumno_Curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Curso">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Alumno_Curso">
+        <PropertyRef Name="idCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ColegioSPEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Alumno" EntityType="Self.Alumno" />
+    <EntitySet Name="Alumno_Curso" EntityType="Self.Alumno_Curso" />
+    <EntitySet Name="Curso" EntityType="Self.Curso" />
+    <AssociationSet Name="FK_Alumno_Curso_Alumno" Association="Self.FK_Alumno_Curso_Alumno">
+      <End Role="Alumno" EntitySet="Alumno" />
+      <End Role="Alumno_Curso" EntitySet="Alumno_Curso" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Alumno_Curso_Curso" Association="Self.FK_Alumno_Curso_Curso">
+      <End Role="Curso" EntitySet="Curso" />
+      <End Role="Alumno_Curso" EntitySet="Alumno_Curso" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
